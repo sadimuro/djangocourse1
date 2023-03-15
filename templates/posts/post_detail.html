@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <figure class="text-center">
+        <blockquote class="blockquote">
+            <h1 class="display-6">{{ post.title }}</h1>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            {{ post.created }}
+        </figcaption>
+    </figure>
+    <p>{{ post.content }}</p><br>
+
+
+    {% for comment in post.post_comment.all|slice:"0:4" %}
+        <div class="card">
+            <div class="card-header">
+                {{ comment.created }}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ comment.name }}</h5>
+                <p class="card-text">{{ comment.text }}</p>
+
+            </div>
+        </div><br>
+    {% endfor %}
+    <br>
+
+    <form action="" method="post">
+        {% csrf_token %}
+{#        <input type="hidden" value="{{ post.id }}" name="post_id">#}
+{#        <div class="mb-3 row">#}
+{#            <label for="inputName" class="col-sm-2 col-form-label">Имя пользователя</label>#}
+{#            <div class="col-sm-10">#}
+{#                <input type="text" class="form-control" id="inputName" name="name">#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <div class="mb-3 row">#}
+{#            <label for="inputText" class="col-sm-2 col-form-label">Текст комментария</label>#}
+{#            <div class="col-sm-10">#}
+{#                <input type="text" class="form-control" id="inputText" name="text">#}
+{#            </div>#}
+{#        </div>#}
+        {{ form.as_p }}
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3">Оставить комментарий</button>
+        </div>
+    </form>
+
+    <br>
+    <form action="{% url 'post-delete' post.id %}" method="get">
+        {% csrf_token %}
+        <button type="submit">Удалить пост</button>
+    </form>
+    <br>
+
+    <a href="{% url 'post-update' post.id %}">
+        <button>Обновить пост</button>
+    </a><br>
+
+    {% include 'posts/includes/links_include.html' %}
+
+{% endblock %}

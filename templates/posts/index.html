@@ -1,16 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Это главная страница</h1>
-<ul>
-    {% for i in my_list %}
-        {% if i == 4 %}
-        <li>{{ i }}</li>
-        {% endif %}
-    {% endfor %}
-</ul>
+    <h1>Это главная страница</h1>
+    {% for post in posts %}
 
-<a href="{% url 'about-page' %}">Страница о нас</a>
-<a href="{% url 'contacts-page' %}">Контакты</a>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ post.created }}</h6>
+            <p class="card-text">{{ post.content|truncatewords:10 }}</p>
+            <a href="{% url 'post-detail' post.pk %}" class="card-link">Читать полностью</a>
+{#            <a href="#" class="card-link">Another link</a>#}
+        </div>
+    </div>
+        <br>
+
+    {% endfor %}
+    <br>
+    <a href="{% url 'post-create' %}"><button>Создать пост</button></a><br>
+    {% include 'posts/includes/links_include.html' %}
+
 
 {% endblock %}

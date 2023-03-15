@@ -4,7 +4,6 @@
 
     <h1>Страница с контактами</h1>
 
-    <a href="{% url 'index-page' %}">На главную</a>
-    <a href="{% url 'about-page' %}">О нас</a>
+    {% include 'posts/includes/links_include.html' %}
 
 {% endblock %}

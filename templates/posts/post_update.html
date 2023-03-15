@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Post Update</h1>
+
+    <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Обновить запись</button>
+    </form>
+
+    {% include 'posts/includes/links_include.html' %}
+{% endblock %}

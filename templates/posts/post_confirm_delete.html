@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Удаление поста - {{ post.title }}</h1>
+    <form action="{% url 'post-delete' post.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Удалить пост</button>
+    </form>
+    <a href="{% url 'post-detail' post.id %}">
+        <button>Отмена</button>
+    </a><br>
+
+    {% include 'posts/includes/links_include.html' %}
+{% endblock %}
